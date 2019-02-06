@@ -11,7 +11,7 @@ export default class Widget extends Component {
     constructor () {
         super();
         this.state = {
-            title: 'New Title',
+            title: 'Widget Title',
             city:"Melbourne",
             temperature: '32°',
             wind: 'NE 23km/h',
