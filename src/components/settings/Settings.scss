@@ -1,0 +1,40 @@
+.settings-container {
+  margin: 52px 30px 70px 60px;
+  border-right: 1px solid #d1d1d1;
+  width: 315px;
+  float: left;
+  color: #737373;
+  h1 {
+    font-size: 18px;
+    font-weight: normal;
+  }
+  .wid-title {
+    width: 282px;
+    height: 37px;
+    border: 1px solid #d1d1d1; 
+    border-radius: 4px;
+    text-indent: 10px;
+    font-size: 16px;
+  }
+}
+.temperature {
+  padding: 10px 0;
+  & h4 {
+    margin: 8px 0px 0px 0px;
+    font-weight: normal;
+  }
+  .temp-val {
+    padding-top: 10px;
+
+    .wid-group {
+      display: inline-block;
+      width: 140px;
+
+      label {
+        margin-top: 5px;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+  
