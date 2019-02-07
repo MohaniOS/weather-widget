@@ -29,7 +29,7 @@ export default class Widget extends Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const {latitude, longitude} = position.coords;
-                const apiToken = 'c41118b90f7d2cba23b73b4bac9f5ac2';
+                const apiToken = 'c41118b90f7d2cba23b73b4bac9f5ac2'; //Apikey is created and its not activated yet. it will work once activated. 
                 const apiUrl = 'http://api.openweathermap.org/data/2.5/weather?';
                 axios.get(`${apiUrl}APPID=${apiToken}lat=${latitude}&lon=${longitude}`)
                     .then(response => {
@@ -56,23 +56,42 @@ export default class Widget extends Component {
         
     } 
 
+    /**
+     * This function is used to update the weather from API response.
+     * @param(data) - This will be the json of API response data
+     */
     setNewWeather = (data) => {
         this.setState({
+            //need to set the city name with the lat and lang attribute.
+            //Direction should be calculated by the degrees available in this API response. as of now hardcoded as 'NE'
             tempRaw: data.main.temp,
             temperature: Math.ceil(this.state.isCelcious ? (data.main.temp - 32) * 5/9 : data.main.temp),
             wind: `NE ${Math.ceil(data.wind.speed)}km/h`,
         });
     }
-    enableWind = (isEnable) => {
+
+    /**
+     * This function is called when the wind on - off radio button changed.
+     * @param(isEnable) - boolean value, and its default value is true.
+     */
+    enableWind = (isEnable = true) => {
         this.setState({
             isWindEnabled: isEnable
         });
     }
 
+    /**
+     * This function is called when title is changed.
+     * @param(title) - string.
+     */
     titleDidChange = (title) => {
         this.setState({ title: title.currentTarget.value});
     }
 
+    /**
+     * This function is called when the Temperature metric radio button changed.
+     * @param(unit) - String value, either "C" or "F".
+     */
     temperatureUnitDidChange = (unit) => {
         const temp = this.state.tempRaw;
         this.setState({
@@ -80,6 +99,7 @@ export default class Widget extends Component {
             isCelcious: unit === "C"
         })
     }
+
     render() {
         return (
             <div className="container">
