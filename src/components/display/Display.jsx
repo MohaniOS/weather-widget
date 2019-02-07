@@ -17,7 +17,7 @@ export default class Display extends Component {
                 </div>
                 <div className="infoContainer">
                     <div className="city">{ city || "Sydney" }</div>
-                    <div className="temp">{ temperature || "26°" }</div>
+                    <div className="temp">{ temperature + '°' || "26°" }</div>
                     { isWindEnabled ? <div>
                         <div className="windLabel">Wind</div>
                         <div className="windText">{ wind || "NE 24km/h" }</div>
