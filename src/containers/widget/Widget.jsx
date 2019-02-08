@@ -98,7 +98,7 @@ export default class Widget extends Component {
     temperatureUnitDidChange = (unit) => {
         const temp = this.state.tempRaw;
         this.setState({
-            temperature: Math.ceil(unit === "C" ? (temp - 32) * 5/9 : temp),
+            temperature: Math.ceil(unit === "C" ? temp : (temp * 9/5) + 32),
             isCelcious: unit === "C"
         })
     }
