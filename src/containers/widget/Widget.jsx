@@ -29,12 +29,13 @@ export default class Widget extends Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const {latitude, longitude} = position.coords;
+
                 const apiToken = 'c41118b90f7d2cba23b73b4bac9f5ac2'; //Apikey is created and its not activated yet. it will work once activated. 
-                const apiUrl = 'http://api.openweathermap.org/data/2.5/weather?';
-                axios.get(`${apiUrl}APPID=${apiToken}lat=${latitude}&lon=${longitude}`)
+                const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?';
+                
+                axios.get(`${apiUrl}APPID=${apiToken}&lat=${latitude}&lon=${longitude}`)
                     .then(response => {
-                        console.log(response);
-                        currentComponent.setNewWeather(response);
+                        currentComponent.setNewWeather(response.data);
                     })
                     .catch(error => {
                         const apiResponse = {
@@ -61,11 +62,13 @@ export default class Widget extends Component {
      * @param(data) - This will be the json of API response data
      */
     setNewWeather = (data) => {
+        if (!data) return;
         this.setState({
             //need to set the city name with the lat and lang attribute.
             //Direction should be calculated by the degrees available in this API response. as of now hardcoded as 'NE'
-            tempRaw: data.main.temp,
-            temperature: Math.ceil(this.state.isCelcious ? (data.main.temp - 32) * 5/9 : data.main.temp),
+            city: data.name,
+            tempRaw: data.main.temp / 10,
+            temperature: Math.ceil(this.state.isCelcious ? data.main.temp / 10 : ((data.main.temp / 10) - 32) * 5/9),
             wind: `NE ${Math.ceil(data.wind.speed)}km/h`,
         });
     }
